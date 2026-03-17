@@ -1,59 +1,98 @@
-# ProcurementManagementUi
+# Procurement Management UI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A modern Angular frontend for the Procurement Management System. Built with **Angular 21**, **Angular Material**, and **TypeScript** — connects to the [Spring Boot REST API](https://github.com/manjunath-hajeri/procurement-management-service).
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- **Angular 21**
+- **Angular Material** (UI components)
+- **TypeScript**
+- **SCSS**
+- **RxJS**
+- **JWT Authentication**
 
+## Features
+
+- Login with JWT-based authentication
+- Route guard — redirects unauthenticated users to login
+- JWT interceptor — automatically attaches Bearer token to every API request
+- **Dashboard** — live stats (vendors, orders, pending approvals) + recent orders table
+- **Vendor Management** — list with search/filter/pagination, create, edit, delete, status control
+- **Purchase Order Management** — list, create with line items, detail view with full approval workflow
+- Order status flow: `DRAFT → SUBMITTED → APPROVED → ORDERED → RECEIVED`
+- Role-based UI — approve/reject buttons shown based on order status
+- Responsive layout with sidenav navigation and toolbar
+
+## Project Structure
+
+```
+src/app/
+├── core/
+│   ├── models/         # TypeScript interfaces (auth, vendor, purchase-order)
+│   ├── services/       # AuthService, VendorService, PurchaseOrderService
+│   ├── guards/         # authGuard (route protection)
+│   └── interceptors/   # jwtInterceptor (auto auth headers)
+├── features/
+│   ├── auth/login/     # Login page
+│   ├── dashboard/      # Dashboard with stats
+│   ├── vendors/        # Vendor list + form
+│   └── purchase-orders/# Order list, form, detail
+├── shared/
+│   └── components/
+│       └── layout/     # App shell (toolbar + sidenav)
+└── environments/       # API URL config per environment
+```
+
+## Prerequisites
+
+- Node.js 18+
+- Angular CLI 21+
+- [procurement-management-service](https://github.com/manjunath-hajeri/procurement-management-service) running on `http://localhost:8080`
+
+## Getting Started
+
+**1. Clone the repository:**
+```bash
+git clone https://github.com/manjunath-hajeri/procurement-management-ui.git
+cd procurement-management-ui
+```
+
+**2. Install dependencies:**
+```bash
+npm install
+```
+
+**3. Configure the API URL** (optional — default is `http://localhost:8080/api/v1`):
+
+Edit `src/environments/environment.ts`:
+```ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080/api/v1'
+};
+```
+
+**4. Start the development server:**
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open your browser at `http://localhost:4200`
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build for Production
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output will be in the `dist/` directory.
 
-## Running unit tests
+## Backend
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+This frontend requires the Spring Boot backend to be running.
+See: [procurement-management-service](https://github.com/manjunath-hajeri/procurement-management-service)
 
-```bash
-ng test
-```
+## Author
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Manjunath Hajeri** — Lead Software Engineer  
+[LinkedIn](https://linkedin.com/in/manjunath-hajeri-9985a392) | hajerimanjunath1991@gmail.com
