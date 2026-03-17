@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Procurement Management</span>
+  <span class="spacer"></span>
+  <span class="user-info">{{ (currentUser$ | async)?.fullName }}</span>
+  <button mat-icon-button (click)="logout()" matTooltip="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/vendors" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>business</mat-icon>
+        <span matListItemTitle>Vendors</span>
+      </a>
+      <a mat-list-item routerLink="/purchase-orders" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>receipt_long</mat-icon>
+        <span matListItemTitle>Purchase Orders</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

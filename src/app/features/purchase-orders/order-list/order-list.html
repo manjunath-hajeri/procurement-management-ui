@@ -1,0 +1,60 @@
+<div class="page-header">
+  <h2>Purchase Orders</h2>
+  <button mat-raised-button color="primary" routerLink="/purchase-orders/new">
+    <mat-icon>add</mat-icon> New Order
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search orders</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Order number, vendor...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort class="full-width">
+      <ng-container matColumnDef="orderNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order #</th>
+        <td mat-cell *matCellDef="let o">{{ o.orderNumber }}</td>
+      </ng-container>
+      <ng-container matColumnDef="vendorName">
+        <th mat-header-cell *matHeaderCellDef>Vendor</th>
+        <td mat-cell *matCellDef="let o">{{ o.vendorName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let o">
+          <span [class]="'badge badge-' + o.status.toLowerCase()">{{ o.status }}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="totalAmount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let o">{{ o.totalAmount | currency }}</td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let o">{{ o.createdAt | date:'mediumDate' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let o">
+          <button mat-icon-button [routerLink]="['/purchase-orders', o.id]" matTooltip="View">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" *ngIf="o.status === 'DRAFT'"
+                  (click)="deleteOrder(o)" matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="clickable-row"
+          [routerLink]="['/purchase-orders', row.id]"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="6">No orders found</td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>

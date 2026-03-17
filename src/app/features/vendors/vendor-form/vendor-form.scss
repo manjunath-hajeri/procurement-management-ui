@@ -1,0 +1,6 @@
+.form-card { max-width: 800px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.form-grid mat-form-field { width: 100%; }
+.full-col { grid-column: 1 / -1; }
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.error-message { color: red; margin-bottom: 12px; }

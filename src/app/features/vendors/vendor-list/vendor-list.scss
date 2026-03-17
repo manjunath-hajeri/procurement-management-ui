@@ -1,0 +1,7 @@
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.search-field { width: 300px; margin-bottom: 8px; }
+.full-width { width: 100%; }
+.badge { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+.badge-active { background: #c8e6c9; color: #2e7d32; }
+.badge-inactive { background: #fff9c4; color: #f57f17; }
+.badge-blacklisted { background: #ffcdd2; color: #c62828; }
